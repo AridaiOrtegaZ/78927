@@ -43,10 +43,6 @@ public class SaludosEndPoint {
     @ResponsePayload
     public BuscarSaludosResponse buscar(){
         BuscarSaludosResponse buscarSaludosResponse = new BuscarSaludosResponse();
-        /*for(int i = 0; i<saludos.size();i++){
-            buscarSaludosResponse.getSaludos().add(saludos.get(i));
-        }*/
-        //buscarSaludosResponse.getSaludos().add(isaludadores.findAll());
         return buscarSaludosResponse;
     }
 
@@ -68,16 +64,8 @@ public class SaludosEndPoint {
     @ResponsePayload
     public BorrarSaludoResponse modificar(@RequestPayload BorrarSaludoRequest peticion){
         BorrarSaludoResponse respuesta = new BorrarSaludoResponse();
-        //BuscarSaludosResponse.Saludos e = new BuscarSaludosResponse.Saludos();
         isaludadores.deleteById(peticion.getId());
-        //e.setId(peticion.getId());
-        //saludos.remove(peticion.getId()-1);
         respuesta.setRespuesta(true);
-        /*i=1;
-        for(int j = 0; j<saludos.size();j++){
-            saludos.get(j).setId(j+1);
-            i++;
-        }*/
         return respuesta;
     }
 
