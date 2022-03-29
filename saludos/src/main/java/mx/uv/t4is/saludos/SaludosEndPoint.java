@@ -56,7 +56,7 @@ public ModificarSaludoResponse modificar(@RequestPayload ModificarSaludoRequest 
     b.setId(peticion.getId());
 	saludos.set(peticion.getId()-1,b);
 	respuesta.setRespuesta(true);
-	return null;
+	return respuesta;
 }
 
 @PayloadRoot(namespace = "https://t4is.uv.mx/saludos", localPart = "BorrarSaludoRequest")
@@ -70,6 +70,6 @@ public BorrarSaludoResponse modificar(@RequestPayload BorrarSaludoRequest petici
     e.setId(peticion.getId());
 	saludos.remove(peticion.getId()-1);
 	respuesta.setRespuesta(true);
-	return null;
+	return respuesta;
 } 
 }
