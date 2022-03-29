@@ -43,6 +43,14 @@ public class SaludosEndPoint {
     @ResponsePayload
     public BuscarSaludosResponse buscar(){
         BuscarSaludosResponse buscarSaludosResponse = new BuscarSaludosResponse();
+        Iterable<Saludadores> saludadores = isaludadores.findAll();
+
+        saludadores.forEach(isaludo -> {
+            Saludo saludo = new Saludo();
+            saludo.setId(isaludo.getId());
+            saludo.setNombre(isaludo.getNombre());
+            respuesta.getSaludo().add(saludo);
+        });
         return buscarSaludosResponse;
     }
 
@@ -51,12 +59,19 @@ public class SaludosEndPoint {
     @ResponsePayload
     public ModificarSaludoResponse modificar(@RequestPayload ModificarSaludoRequest peticion){
         ModificarSaludoResponse respuesta = new ModificarSaludoResponse();
-        BuscarSaludosResponse.Saludos e = new BuscarSaludosResponse.Saludos();
-        e.setNombre(peticion.getNombre());
-        e.setId(peticion.getId());
-        //saludos.set(peticion.getId()-1, e);
-        
-        respuesta.setRespuesta(true);
+        int id = peticion.getId();
+        String nombre = peticion.getNombre();
+
+        Optional<Saludadores> oSaludador = isaludadores.findById(id);
+        if(oSaludador.isPresent()) {
+            Saludadores saludador;
+            saludador = oSaludador.get();
+            saludador.setNombre(nombre);
+            isaludadores.save(saludador);
+            respuesta.setRespuesta(true);
+        } else {
+            respuesta.setRespuesta(false);
+        }
         return respuesta;
     }
 
